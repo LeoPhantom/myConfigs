@@ -6,7 +6,7 @@ PARANT_DIR="$(cd "$(dirname "${BASH_SOURCEP[0]}")" && cd ..  && pwd)"
 echo -e "=========Install script=========== \n"
 echo "Install starting for arch "
 
-#sudo pacman -S curl vim feh alacritty i3blocks nerd-fonts picom ranger vim fastfetch xorg-xrandr  -y
+sudo pacman -S curl vim feh alacritty i3blocks nerd-fonts picom ranger vim fastfetch xorg-xrandr  -y
 
 echo -e  "Packeges installed \n"
 echo -e  "Making directorys \n"
@@ -37,8 +37,8 @@ cp configs/i3blocks/config  ~/.config/i3blocks/
 cp configs/alacritty/alacritty.toml  ~/.config/alacritty/
 cp -r configs/alacritty/themes  ~/.config/alacritty/ 
 cp configs/fastfetch/config.jsonc  ~/.config/fastfetch 
-cp -r PARANT_DIR/Pictures/ ~/Pictures
-cp -r PARANT_DIR/dotFiles/.vimrc  ~/ 
+cp  ../Pictures/*  ~/Pictures
+cp -r ../dotFiles/.vimrc  ~/ 
 echo -e "Making script excetable and copying it to Scripts folder"
 
 chmod +x bg.sh toggle_bg.sh
