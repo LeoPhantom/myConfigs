@@ -1,9 +1,12 @@
 #!/bin/bash 
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCEP[0]}")" && pwd)"
+CONFIG_DIR="$SCRIPT_DIR"/config
+
 echo -e "=========Install script=========== \n"
 echo "Install starting for arch "
 
-sudo pacman -S curl alacritty i3blocks nerd-fonts picom ranger vim fastfetch -y
+#sudo pacman -S curl feh alacritty i3blocks nerd-fonts picom ranger vim fastfetch -y
 
 echo -e  "Packeges installed \n"
 echo -e  "Making directorys \n"
@@ -14,24 +17,24 @@ mkdir -p ~/.config/i3blocks
 mkdir -p ~/Scripts
 mkdir -p ~/.config/fastfetch 
 
-echo -e "Installing Oh my bash "
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+#echo -e "Installing Oh my bash "
+#bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 
 echo -e "Copying config files\n"
-
-if [ -e ~/.config/i3/conf ]; then
+echo -e "Config  dir is at  $CONFIG_DIR"
+if [ -e ~/.config/i3/config ]; then
     echo -e  "File exists.\n"
     echo -e "Removing i3 config fil and replacing \n"
-    rm ~/.config/i3/conf
-    cp config/i3/conf ~/.config/i3/
+    rm ~/.config/i3/config
+    cp -r configs/i3/config ~/.config/i3/
 
 
 else
-    cp config/i3/conf ~/.config/i3/
+    cp configs/i3/config ~/.config/i3/
  
 fi
 
-cp configs/i3/blocks/conf  ~/.config/i3blocks/ 
+cp configs/i3blocks/config  ~/.config/i3blocks/ 
 cp configs/alacritty/alacritty.toml  ~/.config/alacritty/
 cp -r configs/alacritty/themes  ~/.config/alacritty/ 
 cp configs/fastfetch/config.jsonc  ~/.config/fastfetch 
