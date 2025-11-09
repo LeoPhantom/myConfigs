@@ -18,8 +18,6 @@ mkdir -p ~/Scripts
 mkdir -p ~/.config/fastfetch 
 mkdir -p ~/Pictures 
 
-#echo -e "Installing Oh my bash "
-#bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 
 echo -e "Copying config files\n"
 echo -e "Config  dir is at  $CONFIG_DIR"
@@ -56,6 +54,7 @@ run=true
 count=3
 while [ $run = true ]; do
 	echo " in $count ..."
+	sleep 1 
 	if [ $count -eq 0 ]; then
 		run=false
 	fi
@@ -65,6 +64,21 @@ done
 i3-msg restart
 
 echo -e "\033[32mTo apply the resulution change need to exit i3 and log in back \033[0m"
+
+read -p  "  Do you want Oh my bash ? [y/N]" :user_input 
+
+if [[ "$user_input" == "y"]]; then 
+	echo -e " Coying bashrc to home dir \n "
+	cp $PARANT_DIR/dotFiles/.bashrc  ~/
+
+	echo "==== Installing oh my bash ===="
+	bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+else 
+	echo "You choose not to "
+	exit 0 
+fi 
+
+
 
 
 
