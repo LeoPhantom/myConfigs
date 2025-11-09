@@ -3,7 +3,7 @@
 echo -e "=========Install script=========== \n"
 echo "Install starting for arch "
 
-sudo pacman -S curl alacritty i3blocks nerd-fonts picom ranger vim -y
+sudo pacman -S curl alacritty i3blocks nerd-fonts picom ranger vim fastfetch -y
 
 echo -e  "Packeges installed \n"
 echo -e  "Making directorys \n"
@@ -12,6 +12,7 @@ mkdir -p ~/.config/i3
 mkdir -p ~/.config/alacritty
 mkdir -p ~/.config/i3blocks
 mkdir -p ~/Scripts
+mkdir -p ~/.config/fastfetch 
 
 echo -e "Installing Oh my bash "
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
@@ -30,9 +31,11 @@ else
  
 fi
 
-cp config/i3/blocks/conf  ~/.config/i3blocks/ 
-cp config/alacritty/alacritty.toml  ~/.config/alacritty/
-cp -r config/alacritty/themes  ~/.config/alacritty/ 
+cp configs/i3/blocks/conf  ~/.config/i3blocks/ 
+cp configs/alacritty/alacritty.toml  ~/.config/alacritty/
+cp -r configs/alacritty/themes  ~/.config/alacritty/ 
+cp configs/fastfetch/config.jsonc  ~/.config/fastfetch 
+
 
 echo -e "Making script excetable and copying it to Scripts folder"
 
