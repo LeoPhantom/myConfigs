@@ -26,3 +26,16 @@ so you need to do this manually.
    sudo apt remove i3lock
 
 
+No oh my bash install do it manually. 
+**Need to see if its compatible 
+
+This script and configs are for Debian testing , **will not work for Debian stable** packges are to old
+
+Fastfetch install is in the script but the only default config is generated. 
+
+
+How to use : 
+
+
+ 
+
