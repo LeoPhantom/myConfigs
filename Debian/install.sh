@@ -7,7 +7,7 @@ PARANT_DIR="$(cd "$(dirname "${BASH_SOURCEP[0]}")" && cd ..  && pwd)"
 echo -e "=========Install script=========== \n"
 echo " Install Debian config for i3 "
 
-sudo apt install -y picom feh nigrogen alacritty fastfetch 
+sudo apt install -y lazygit  picom feh nigrogen alacritty fastfetch nala 
 
 
 echo -e  "Packeges installed \n"
@@ -33,7 +33,9 @@ fi
 
 cp configs/alacritty/alacritty.toml  ~/.config/alacritty/
 cp -r configs/alacritty/themes  ~/.config/alacritty/
-cp  ../Pictures/*  ~/Pictures
+cp -r  ../Pictures/*  ~/Pictures
+
+#Need to install poybar and copy the config , no config gile in the config foldre add them 
 
 echo "The script for i3lock-colors is in config/scripts , manually paset it if u will use i3lock-color"
 sleep 3 
