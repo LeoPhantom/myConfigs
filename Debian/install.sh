@@ -17,6 +17,7 @@ mkdir -p ~/.config/i3
 mkdir -p ~/.config/alacritty
 mkdir -p ~/.config/picom
 mkdir -p ~/Pictures
+mkdir -p ~/scripts
 
 echo -e "Copying config files\n"
 sleep 3
@@ -34,7 +35,7 @@ fi
 cp configs/alacritty/alacritty.toml  ~/.config/alacritty/
 cp -r configs/alacritty/themes  ~/.config/alacritty/
 cp -r  ../Pictures/*  ~/Pictures
-
+cp /scripts/* ~/scripts
 #Need to install poybar and copy the config , no config gile in the config foldre add them 
 
 echo "The script for i3lock-colors is in config/scripts , manually paset it if u will use i3lock-color"
