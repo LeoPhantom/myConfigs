@@ -1,0 +1,50 @@
+#My aliases
+
+=======================================
+
+alias nl="sudo nala install -y "
+alias cl="clear"
+alias v="vim"
+alias lazy="lazygit"
+alias th="python3 /home/silver/scripts/py/change_theme.py "
+alias qq="exit"
+alias fixbg="feh --bg-fill ~/Pictures/geralt-witcher-fantasy-game-14-4k.jpg"
+alias bat="batcat"
+tn() {
+    SESSION=main
+
+    if tmux has-session -t "$SESSION" 2>/dev/null; then
+        tmux new-window -t "$SESSION" -c "$PWD"
+        tmux attach -t "$SESSION"
+    else
+        tmux new -s "$SESSION" -c "$PWD"
+    fi
+}
+
+tnn() {
+    if [ -n "$TMUX" ]; then
+        tmux next-window
+    else
+        tmux attach -t main 2>/dev/null || tmux new -s main
+    fi
+}
+
+tg() {
+    tmux select-window -t ":$1"
+}
+
+tnb() {
+    if [ -n "$TMUX" ]; then
+        tmux previous-window
+    else
+        tmux attach -t main 2>/dev/null || tmux new -s main
+    fi
+}
+
+tm() {
+    if [ -n "$TMUX" ]; then
+        tmux rename-window "$*"
+    else
+        echo "Not inside tmux"
+    fi
+}
