@@ -1,0 +1,13 @@
+include ~/.config/i3/xterm_color.conf
+
+general {
+    output_format = "i3bar"
+    color_good = "#CD0000"
+    color_degraded = "#FFFF00"
+    color_bad = "#FF0000"
+}
+
+
+order += "cpu_usage"
+order += "memory"
+

@@ -1,42 +1,40 @@
 #!/bin/bash
 
-
+CONFIGFILE="~/.config"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCEP[0]}")" && pwd)"
 CONFIG_DIR="$SCRIPT_DIR"/config
 PARANT_DIR="$(cd "$(dirname "${BASH_SOURCEP[0]}")" && cd ..  && pwd)"
 echo -e "=========Install script=========== \n"
 echo " Install Debian config for i3 "
 
-sudo apt install -y lazygit  picom feh nigrogen alacritty fastfetch nala 
+sudo apt install -y lazygit  picom feh nigrogen alacritty fastfetch nala polybar
 
 
 echo -e  "Packeges installed \n"
 echo -e  "Making directorys \n"
 
-mkdir -p ~/.config/i3
-mkdir -p ~/.config/alacritty
-mkdir -p ~/.config/picom
-mkdir -p ~/Pictures
-mkdir -p ~/scripts
-
-echo -e "Copying config files\n"
-sleep 3
-
-if [ -e ~/.config/i3/config ]; then
-    echo -e  "File exists.\n"
-    echo -e "Removing i3 config fil and replacing \n"
-    rm ~/.config/i3/config
-    cp -r configs/i3/config ~/.config/i3/
-
- else 
-	 cp configs/i3/config ~/.config/i3/
+if [[ ! -f "${CONFIGFILE}"]]
+	echo -e "No .config found \n"
+	echo -e  "Making directory .config \n"
+	mkdir -p ~/.config/
 fi
 
-cp configs/alacritty/alacritty.toml  ~/.config/alacritty/
-cp -r configs/alacritty/themes  ~/.config/alacritty/
+echo -e "Copying config files to .config directory"
+cp -r .config/* ~/.config
+echo -e "Copying config files to .config directory"
+
+if [[ ! -f "home/$USER/Pictures"]]
+	echo -e "No Pictures directory found \n"
+	echo -e  "Making directory Pictures directory \n"
+	mkdir -p ~/Pictures/
+fi
+
 cp -r  ../Pictures/*  ~/Pictures
+
+echo -e "Making scripts directory"
+mkdir ~/scripts
 cp -r /scripts/* ~/scripts
-#Need to install poybar and copy the config , no config gile in the config foldre add them 
+
 
 echo "The script for i3lock-colors is in config/scripts , manually paset it if u will use i3lock-color"
 sleep 3 
