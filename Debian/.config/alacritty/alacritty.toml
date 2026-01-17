@@ -1,8 +1,0 @@
-[general]
-import = [
-    "~/.config/alacritty/themes/themes/xterm.toml"
-]
-
-[window]
-# The value is a float between 0.0 (fully transparent) and 1.0 (fully opaque).
-opacity = 0.9

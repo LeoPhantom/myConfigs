@@ -1,55 +1,71 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 
-CONFIGFILE="~/.config"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCEP[0]}")" && pwd)"
-CONFIG_DIR="$SCRIPT_DIR"/config
-PARANT_DIR="$(cd "$(dirname "${BASH_SOURCEP[0]}")" && cd ..  && pwd)"
-echo -e "=========Install script=========== \n"
-echo " Install Debian config for i3 "
+echo "▶ Installing i3 Nord theme dependencies..."
 
-sudo apt install -y lazygit  picom feh nigrogen alacritty fastfetch nala polybar
+PACKAGES=(
+  curl
+  git
+  i3
+  i3-wm
+  xorg
+  xinit
+  polybar
+  picom
+  feh
+  alacritty
+  dmenu
+  fonts-hack-ttf
+)
 
+MISSING_PKGS=()
 
-echo -e  "Packeges installed \n"
-echo -e  "Making directorys \n"
-
-if [[ ! -f "${CONFIGFILE}"]]
-	echo -e "No .config found \n"
-	echo -e  "Making directory .config \n"
-	mkdir -p ~/.config/
-fi
-
-echo -e "Copying config files to .config directory"
-cp -r .config/* ~/.config
-echo -e "Copying config files to .config directory"
-
-if [[ ! -f "home/$USER/Pictures"]]
-	echo -e "No Pictures directory found \n"
-	echo -e  "Making directory Pictures directory \n"
-	mkdir -p ~/Pictures/
-fi
-
-cp -r  ../Pictures/*  ~/Pictures
-
-echo -e "Making scripts directory"
-mkdir ~/scripts
-cp -r /scripts/* ~/scripts
-
-
-echo "The script for i3lock-colors is in config/scripts , manually paset it if u will use i3lock-color"
-sleep 3 
-
-echo -e "Restarting I3 !!"
-
-run=true
-count=3
-while [ $run = true ]; do
-	echo " in $count ..."
-	sleep 1
-	if [ $count -eq 0 ]; then
-		run=false
-	fi
-	count=$((count-1))
+for pkg in "${PACKAGES[@]}"; do
+  if ! dpkg -s "$pkg" >/dev/null 2>&1; then
+    MISSING_PKGS+=("$pkg")
+  else
+    echo "✔ $pkg already installed"
+  fi
 done
 
-i3-msg restart
+if [ "${#MISSING_PKGS[@]}" -gt 0 ]; then
+  echo "▶ Installing missing packages: ${MISSING_PKGS[*]}"
+  sudo apt update
+  sudo apt install -y "${MISSING_PKGS[@]}"
+else
+  echo "✔ All required packages are already installed"
+fi
+
+echo "✔ Packages installed"
+
+#==================================#
+
+echo "▶ Preparing config directories..."
+
+mkdir -p "$HOME/.config"
+mkdir -p "$HOME/.local/bin"
+
+# Copy configs
+if [ -d config ] && [ "$(ls -A config 2>/dev/null)" ]; then
+  cp -r config/* "$HOME/.config/"
+fi
+
+# Copy scripts
+if [ -d bin ] && [ "$(ls -A bin 2>/dev/null)" ]; then
+  cp -r bin/* "$HOME/.local/bin/"
+  chmod +x "$HOME/.local/bin/"*
+fi
+
+echo "✔ Configs installed"
+
+#==================================#
+
+# Fish shell (optional)
+if command -v fish >/dev/null 2>&1; then
+  echo "▶ Fish detected, adding ~/.local/bin to PATH"
+  fish -c "fish_add_path ~/.local/bin"
+fi
+
+echo "✔ Installation complete!"
+echo "Log out and log back in to start i3."
+
